@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="stardeckModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="cards">
+    <Key>
+      <PropertyRef Name="card_id" />
+    </Key>
+    <Property Name="card_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="card_name" Type="varchar" MaxLength="50" />
+    <Property Name="card_type" Type="int" Nullable="false" />
+    <Property Name="cost" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="category_id" />
+    </Key>
+    <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="category_title" Type="varchar" MaxLength="255" />
+    <Property Name="category_desc" Type="text" />
+  </EntityType>
+  <EntityType Name="comments">
+    <Key>
+      <PropertyRef Name="comment_id" />
+    </Key>
+    <Property Name="comment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="comment_title" Type="varchar" MaxLength="255" />
+    <Property Name="comment_text" Type="text" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="posts_id" Type="int" />
+  </EntityType>
+  <EntityType Name="decks">
+    <Key>
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="deck_slot" />
+    </Key>
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="deck_slot" Type="int" Nullable="false" />
+    <Property Name="card_ids" Type="text" />
+    <Property Name="deck_name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="fighters">
+    <Key>
+      <PropertyRef Name="card_id" />
+    </Key>
+    <Property Name="card_id" Type="int" Nullable="false" />
+    <Property Name="attack" Type="int" Nullable="false" />
+    <Property Name="health" Type="int" Nullable="false" />
+    <Property Name="shield" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="healings">
+    <Key>
+      <PropertyRef Name="card_id" />
+    </Key>
+    <Property Name="card_id" Type="int" Nullable="false" />
+    <Property Name="shield_restore" Type="int" Nullable="false" />
+    <Property Name="hull_restore" Type="int" Nullable="false" />
+    <Property Name="health" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="matches">
+    <Key>
+      <PropertyRef Name="match_id" />
+    </Key>
+    <Property Name="match_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="player1" Type="varchar" MaxLength="55" Nullable="false" />
+    <Property Name="player2" Type="varchar" MaxLength="55" Nullable="false" />
+    <Property Name="winner" Type="varchar" MaxLength="55" />
+    <Property Name="classes" Type="varchar" MaxLength="55" />
+    <Property Name="match_date" Type="date" />
+  </EntityType>
+  <EntityType Name="posts">
+    <Key>
+      <PropertyRef Name="posts_id" />
+    </Key>
+    <Property Name="posts_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="posts_title" Type="varchar" MaxLength="255" />
+    <Property Name="posts_text" Type="text" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="category_id" Type="int" />
+  </EntityType>
+  <EntityType Name="user_profile">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="wins" Type="int" />
+    <Property Name="loses" Type="int" />
+    <Property Name="money" Type="int" />
+    <Property Name="points" Type="int" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="255" />
+    <Property Name="profile_pic" Type="varchar" MaxLength="255" />
+    <Property Name="password" Type="varchar" MaxLength="150" />
+    <Property Name="user_email" Type="varchar" MaxLength="150" />
+    <Property Name="country" Type="varchar" MaxLength="150" />
+    <Property Name="DOB" Type="date" />
+  </EntityType>
+  <EntityType Name="weapons">
+    <Key>
+      <PropertyRef Name="card_id" />
+    </Key>
+    <Property Name="card_id" Type="int" Nullable="false" />
+    <Property Name="damage" Type="int" Nullable="false" />
+    <Property Name="health" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'def.stardeck.ladder' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ladder">
+          <Property Name="username" Type="varchar" MaxLength="255" />
+          <Property Name="points" Type="int" />
+          <Property Name="wins" Type="int" />
+          <Property Name="loses" Type="int" />
+        </EntityType>-->
+  <Association Name="comments_ibfk_1">
+    <End Role="posts" Type="Self.posts" Multiplicity="0..1" />
+    <End Role="comments" Type="Self.comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="posts">
+        <PropertyRef Name="posts_id" />
+      </Principal>
+      <Dependent Role="comments">
+        <PropertyRef Name="posts_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="comments_ibfk_2">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="comments" Type="Self.comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="comments">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="decks_ibfk_1">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="decks" Type="Self.decks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="decks">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fighters_ibfk_1">
+    <End Role="cards" Type="Self.cards" Multiplicity="1" />
+    <End Role="fighters" Type="Self.fighters" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="cards">
+        <PropertyRef Name="card_id" />
+      </Principal>
+      <Dependent Role="fighters">
+        <PropertyRef Name="card_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="healings_ibfk_1">
+    <End Role="cards" Type="Self.cards" Multiplicity="1" />
+    <End Role="healings" Type="Self.healings" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="cards">
+        <PropertyRef Name="card_id" />
+      </Principal>
+      <Dependent Role="healings">
+        <PropertyRef Name="card_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="posts_ibfk_1">
+    <End Role="category" Type="Self.category" Multiplicity="0..1" />
+    <End Role="posts" Type="Self.posts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="category_id" />
+      </Principal>
+      <Dependent Role="posts">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="posts_ibfk_2">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="posts" Type="Self.posts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="posts">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_profile_ibfk_1">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="user_profile">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="weapons_ibfk_1">
+    <End Role="cards" Type="Self.cards" Multiplicity="1" />
+    <End Role="weapons" Type="Self.weapons" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="cards">
+        <PropertyRef Name="card_id" />
+      </Principal>
+      <Dependent Role="weapons">
+        <PropertyRef Name="card_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="stardeckModelStoreContainer">
+    <EntitySet Name="cards" EntityType="Self.cards" Schema="stardeck" store:Type="Tables" />
+    <EntitySet Name="category" EntityType="Self.category" Schema="stardeck" store:Type="Tables" />
+    <EntitySet Name="comments" EntityType="Self.comments" Schema="stardeck" store:Type="Tables" />
+    <EntitySet Name="decks" EntityType="Self.decks" Schema="stardeck" store:Type="Tables" />
+    <EntitySet Name="fighters" EntityType="Self.fighters" Schema="stardeck" store:Type="Tables" />
+    <EntitySet Name="healings" EntityType="Self.healings" Schema="stardeck" store:Type="Tables" />
+    <EntitySet Name="matches" EntityType="Self.matches" Schema="stardeck" store:Type="Tables" />
+    <EntitySet Name="posts" EntityType="Self.posts" Schema="stardeck" store:Type="Tables" />
+    <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="stardeck" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="stardeck" store:Type="Tables" />
+    <EntitySet Name="weapons" EntityType="Self.weapons" Schema="stardeck" store:Type="Tables" />
+    <AssociationSet Name="comments_ibfk_1" Association="Self.comments_ibfk_1">
+      <End Role="posts" EntitySet="posts" />
+      <End Role="comments" EntitySet="comments" />
+    </AssociationSet>
+    <AssociationSet Name="comments_ibfk_2" Association="Self.comments_ibfk_2">
+      <End Role="users" EntitySet="users" />
+      <End Role="comments" EntitySet="comments" />
+    </AssociationSet>
+    <AssociationSet Name="decks_ibfk_1" Association="Self.decks_ibfk_1">
+      <End Role="users" EntitySet="users" />
+      <End Role="decks" EntitySet="decks" />
+    </AssociationSet>
+    <AssociationSet Name="fighters_ibfk_1" Association="Self.fighters_ibfk_1">
+      <End Role="cards" EntitySet="cards" />
+      <End Role="fighters" EntitySet="fighters" />
+    </AssociationSet>
+    <AssociationSet Name="healings_ibfk_1" Association="Self.healings_ibfk_1">
+      <End Role="cards" EntitySet="cards" />
+      <End Role="healings" EntitySet="healings" />
+    </AssociationSet>
+    <AssociationSet Name="posts_ibfk_1" Association="Self.posts_ibfk_1">
+      <End Role="category" EntitySet="category" />
+      <End Role="posts" EntitySet="posts" />
+    </AssociationSet>
+    <AssociationSet Name="posts_ibfk_2" Association="Self.posts_ibfk_2">
+      <End Role="users" EntitySet="users" />
+      <End Role="posts" EntitySet="posts" />
+    </AssociationSet>
+    <AssociationSet Name="user_profile_ibfk_1" Association="Self.user_profile_ibfk_1">
+      <End Role="users" EntitySet="users" />
+      <End Role="user_profile" EntitySet="user_profile" />
+    </AssociationSet>
+    <AssociationSet Name="weapons_ibfk_1" Association="Self.weapons_ibfk_1">
+      <End Role="cards" EntitySet="cards" />
+      <End Role="weapons" EntitySet="weapons" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

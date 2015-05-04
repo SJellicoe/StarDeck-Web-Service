@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="stardeckModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="card">
+    <Key>
+      <PropertyRef Name="card_id" />
+    </Key>
+    <Property Name="card_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="card_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="card_type" Type="Int32" Nullable="false" />
+    <Property Name="cost" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="fighter" Relationship="Self.fighters_ibfk_1" FromRole="cards" ToRole="fighters" />
+    <NavigationProperty Name="healing" Relationship="Self.healings_ibfk_1" FromRole="cards" ToRole="healings" />
+    <NavigationProperty Name="weapon" Relationship="Self.weapons_ibfk_1" FromRole="cards" ToRole="weapons" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="category_id" />
+    </Key>
+    <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="category_title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="category_desc" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="posts" Relationship="Self.posts_ibfk_1" FromRole="category" ToRole="posts" />
+  </EntityType>
+  <EntityType Name="comment">
+    <Key>
+      <PropertyRef Name="comment_id" />
+    </Key>
+    <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="comment_title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="comment_text" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="posts_id" Type="Int32" />
+    <NavigationProperty Name="post" Relationship="Self.comments_ibfk_1" FromRole="comments" ToRole="posts" />
+    <NavigationProperty Name="user" Relationship="Self.comments_ibfk_2" FromRole="comments" ToRole="users" />
+  </EntityType>
+  <EntityType Name="deck">
+    <Key>
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="deck_slot" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="deck_slot" Type="Int32" Nullable="false" />
+    <Property Name="card_ids" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="deck_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="user" Relationship="Self.decks_ibfk_1" FromRole="decks" ToRole="users" />
+  </EntityType>
+  <EntityType Name="fighter">
+    <Key>
+      <PropertyRef Name="card_id" />
+    </Key>
+    <Property Name="card_id" Type="Int32" Nullable="false" />
+    <Property Name="attack" Type="Int32" Nullable="false" />
+    <Property Name="health" Type="Int32" Nullable="false" />
+    <Property Name="shield" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="card" Relationship="Self.fighters_ibfk_1" FromRole="fighters" ToRole="cards" />
+  </EntityType>
+  <EntityType Name="healing">
+    <Key>
+      <PropertyRef Name="card_id" />
+    </Key>
+    <Property Name="card_id" Type="Int32" Nullable="false" />
+    <Property Name="shield_restore" Type="Int32" Nullable="false" />
+    <Property Name="hull_restore" Type="Int32" Nullable="false" />
+    <Property Name="health" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="card" Relationship="Self.healings_ibfk_1" FromRole="healings" ToRole="cards" />
+  </EntityType>
+  <EntityType Name="match">
+    <Key>
+      <PropertyRef Name="match_id" />
+    </Key>
+    <Property Name="match_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="player1" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="player2" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="winner" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+    <Property Name="classes" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+    <Property Name="match_date" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="post">
+    <Key>
+      <PropertyRef Name="posts_id" />
+    </Key>
+    <Property Name="posts_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="posts_title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="posts_text" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="category_id" Type="Int32" />
+    <NavigationProperty Name="category" Relationship="Self.posts_ibfk_1" FromRole="posts" ToRole="category" />
+    <NavigationProperty Name="comments" Relationship="Self.comments_ibfk_1" FromRole="posts" ToRole="comments" />
+    <NavigationProperty Name="user" Relationship="Self.posts_ibfk_2" FromRole="posts" ToRole="users" />
+  </EntityType>
+  <EntityType Name="user_profile">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="wins" Type="Int32" />
+    <Property Name="loses" Type="Int32" />
+    <Property Name="money" Type="Int32" />
+    <Property Name="points" Type="Int32" />
+    <NavigationProperty Name="user" Relationship="Self.user_profile_ibfk_1" FromRole="user_profile" ToRole="users" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="profile_pic" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="user_email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" />
+    <NavigationProperty Name="comments" Relationship="Self.comments_ibfk_2" FromRole="users" ToRole="comments" />
+    <NavigationProperty Name="decks" Relationship="Self.decks_ibfk_1" FromRole="users" ToRole="decks" />
+    <NavigationProperty Name="posts" Relationship="Self.posts_ibfk_2" FromRole="users" ToRole="posts" />
+    <NavigationProperty Name="user_profile" Relationship="Self.user_profile_ibfk_1" FromRole="users" ToRole="user_profile" />
+  </EntityType>
+  <EntityType Name="weapon">
+    <Key>
+      <PropertyRef Name="card_id" />
+    </Key>
+    <Property Name="card_id" Type="Int32" Nullable="false" />
+    <Property Name="damage" Type="Int32" Nullable="false" />
+    <Property Name="health" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="card" Relationship="Self.weapons_ibfk_1" FromRole="weapons" ToRole="cards" />
+  </EntityType>
+  <Association Name="fighters_ibfk_1">
+    <End Role="cards" Type="Self.card" Multiplicity="1" />
+    <End Role="fighters" Type="Self.fighter" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="cards">
+        <PropertyRef Name="card_id" />
+      </Principal>
+      <Dependent Role="fighters">
+        <PropertyRef Name="card_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="healings_ibfk_1">
+    <End Role="cards" Type="Self.card" Multiplicity="1" />
+    <End Role="healings" Type="Self.healing" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="cards">
+        <PropertyRef Name="card_id" />
+      </Principal>
+      <Dependent Role="healings">
+        <PropertyRef Name="card_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="weapons_ibfk_1">
+    <End Role="cards" Type="Self.card" Multiplicity="1" />
+    <End Role="weapons" Type="Self.weapon" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="cards">
+        <PropertyRef Name="card_id" />
+      </Principal>
+      <Dependent Role="weapons">
+        <PropertyRef Name="card_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="posts_ibfk_1">
+    <End Role="category" Type="Self.category" Multiplicity="0..1" />
+    <End Role="posts" Type="Self.post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="category_id" />
+      </Principal>
+      <Dependent Role="posts">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="comments_ibfk_1">
+    <End Role="posts" Type="Self.post" Multiplicity="0..1" />
+    <End Role="comments" Type="Self.comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="posts">
+        <PropertyRef Name="posts_id" />
+      </Principal>
+      <Dependent Role="comments">
+        <PropertyRef Name="posts_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="comments_ibfk_2">
+    <End Role="users" Type="Self.user" Multiplicity="0..1" />
+    <End Role="comments" Type="Self.comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="comments">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="decks_ibfk_1">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="decks" Type="Self.deck" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="decks">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="posts_ibfk_2">
+    <End Role="users" Type="Self.user" Multiplicity="0..1" />
+    <End Role="posts" Type="Self.post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="posts">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_profile_ibfk_1">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="user_profile">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="stardeckEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="cards" EntityType="Self.card" />
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="comments" EntityType="Self.comment" />
+    <EntitySet Name="decks" EntityType="Self.deck" />
+    <EntitySet Name="fighters" EntityType="Self.fighter" />
+    <EntitySet Name="healings" EntityType="Self.healing" />
+    <EntitySet Name="matches" EntityType="Self.match" />
+    <EntitySet Name="posts" EntityType="Self.post" />
+    <EntitySet Name="user_profile" EntityType="Self.user_profile" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <EntitySet Name="weapons" EntityType="Self.weapon" />
+    <AssociationSet Name="fighters_ibfk_1" Association="Self.fighters_ibfk_1">
+      <End Role="cards" EntitySet="cards" />
+      <End Role="fighters" EntitySet="fighters" />
+    </AssociationSet>
+    <AssociationSet Name="healings_ibfk_1" Association="Self.healings_ibfk_1">
+      <End Role="cards" EntitySet="cards" />
+      <End Role="healings" EntitySet="healings" />
+    </AssociationSet>
+    <AssociationSet Name="weapons_ibfk_1" Association="Self.weapons_ibfk_1">
+      <End Role="cards" EntitySet="cards" />
+      <End Role="weapons" EntitySet="weapons" />
+    </AssociationSet>
+    <AssociationSet Name="posts_ibfk_1" Association="Self.posts_ibfk_1">
+      <End Role="category" EntitySet="categories" />
+      <End Role="posts" EntitySet="posts" />
+    </AssociationSet>
+    <AssociationSet Name="comments_ibfk_1" Association="Self.comments_ibfk_1">
+      <End Role="posts" EntitySet="posts" />
+      <End Role="comments" EntitySet="comments" />
+    </AssociationSet>
+    <AssociationSet Name="comments_ibfk_2" Association="Self.comments_ibfk_2">
+      <End Role="users" EntitySet="users" />
+      <End Role="comments" EntitySet="comments" />
+    </AssociationSet>
+    <AssociationSet Name="decks_ibfk_1" Association="Self.decks_ibfk_1">
+      <End Role="users" EntitySet="users" />
+      <End Role="decks" EntitySet="decks" />
+    </AssociationSet>
+    <AssociationSet Name="posts_ibfk_2" Association="Self.posts_ibfk_2">
+      <End Role="users" EntitySet="users" />
+      <End Role="posts" EntitySet="posts" />
+    </AssociationSet>
+    <AssociationSet Name="user_profile_ibfk_1" Association="Self.user_profile_ibfk_1">
+      <End Role="users" EntitySet="users" />
+      <End Role="user_profile" EntitySet="user_profile" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

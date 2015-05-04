@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d2339893743e4cc9a74b7820005c9077" Name="Diagram1">
+        <EntityTypeShape EntityType="stardeckModel.card" Width="1.5" PointX="8.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stardeckModel.category" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="stardeckModel.comment" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stardeckModel.deck" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stardeckModel.fighter" Width="1.5" PointX="11" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="stardeckModel.healing" Width="1.5" PointX="11" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stardeckModel.match" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stardeckModel.post" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stardeckModel.user_profile" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stardeckModel.user" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="stardeckModel.weapon" Width="1.5" PointX="11" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="stardeckModel.fighters_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="stardeckModel.healings_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="stardeckModel.weapons_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="stardeckModel.posts_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="stardeckModel.comments_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="stardeckModel.comments_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="stardeckModel.decks_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="stardeckModel.posts_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="stardeckModel.user_profile_ibfk_1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

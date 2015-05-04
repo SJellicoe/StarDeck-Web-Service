@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="stardeckModelStoreContainer" CdmEntityContainer="stardeckEntities">
+    <EntitySetMapping Name="cards">
+      <EntityTypeMapping TypeName="stardeckModel.card">
+        <MappingFragment StoreEntitySet="cards">
+          <ScalarProperty Name="card_id" ColumnName="card_id" />
+          <ScalarProperty Name="card_name" ColumnName="card_name" />
+          <ScalarProperty Name="card_type" ColumnName="card_type" />
+          <ScalarProperty Name="cost" ColumnName="cost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="stardeckModel.category">
+        <MappingFragment StoreEntitySet="category">
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+          <ScalarProperty Name="category_title" ColumnName="category_title" />
+          <ScalarProperty Name="category_desc" ColumnName="category_desc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="comments">
+      <EntityTypeMapping TypeName="stardeckModel.comment">
+        <MappingFragment StoreEntitySet="comments">
+          <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+          <ScalarProperty Name="comment_title" ColumnName="comment_title" />
+          <ScalarProperty Name="comment_text" ColumnName="comment_text" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="posts_id" ColumnName="posts_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="decks">
+      <EntityTypeMapping TypeName="stardeckModel.deck">
+        <MappingFragment StoreEntitySet="decks">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="deck_slot" ColumnName="deck_slot" />
+          <ScalarProperty Name="card_ids" ColumnName="card_ids" />
+          <ScalarProperty Name="deck_name" ColumnName="deck_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="fighters">
+      <EntityTypeMapping TypeName="stardeckModel.fighter">
+        <MappingFragment StoreEntitySet="fighters">
+          <ScalarProperty Name="card_id" ColumnName="card_id" />
+          <ScalarProperty Name="attack" ColumnName="attack" />
+          <ScalarProperty Name="health" ColumnName="health" />
+          <ScalarProperty Name="shield" ColumnName="shield" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="healings">
+      <EntityTypeMapping TypeName="stardeckModel.healing">
+        <MappingFragment StoreEntitySet="healings">
+          <ScalarProperty Name="card_id" ColumnName="card_id" />
+          <ScalarProperty Name="shield_restore" ColumnName="shield_restore" />
+          <ScalarProperty Name="hull_restore" ColumnName="hull_restore" />
+          <ScalarProperty Name="health" ColumnName="health" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="matches">
+      <EntityTypeMapping TypeName="stardeckModel.match">
+        <MappingFragment StoreEntitySet="matches">
+          <ScalarProperty Name="match_id" ColumnName="match_id" />
+          <ScalarProperty Name="player1" ColumnName="player1" />
+          <ScalarProperty Name="player2" ColumnName="player2" />
+          <ScalarProperty Name="winner" ColumnName="winner" />
+          <ScalarProperty Name="classes" ColumnName="classes" />
+          <ScalarProperty Name="match_date" ColumnName="match_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="posts">
+      <EntityTypeMapping TypeName="stardeckModel.post">
+        <MappingFragment StoreEntitySet="posts">
+          <ScalarProperty Name="posts_id" ColumnName="posts_id" />
+          <ScalarProperty Name="posts_title" ColumnName="posts_title" />
+          <ScalarProperty Name="posts_text" ColumnName="posts_text" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_profile">
+      <EntityTypeMapping TypeName="stardeckModel.user_profile">
+        <MappingFragment StoreEntitySet="user_profile">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="wins" ColumnName="wins" />
+          <ScalarProperty Name="loses" ColumnName="loses" />
+          <ScalarProperty Name="money" ColumnName="money" />
+          <ScalarProperty Name="points" ColumnName="points" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="stardeckModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="profile_pic" ColumnName="profile_pic" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="user_email" ColumnName="user_email" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="weapons">
+      <EntityTypeMapping TypeName="stardeckModel.weapon">
+        <MappingFragment StoreEntitySet="weapons">
+          <ScalarProperty Name="card_id" ColumnName="card_id" />
+          <ScalarProperty Name="damage" ColumnName="damage" />
+          <ScalarProperty Name="health" ColumnName="health" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
